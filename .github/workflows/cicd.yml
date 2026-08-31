@@ -29,8 +29,20 @@ jobs:
         run: |
           cd ./api
           find . -name "*.js" -exec node --check {} +
-          
-           
+
+      - name: Setup Gitleaks
+        id: gitleaks
+        uses: DariuszPorowski/github-action-gitleaks@v2
+        with:
+          fail: false
+
+      - name: Run Gitleaks
+        run: |
+          gitleaks detect --source ./client --exit-code 1
+          gitleaks detect --source ./api --exit-code 1
+
+
+
 
 
 
