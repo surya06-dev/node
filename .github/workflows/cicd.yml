@@ -74,6 +74,38 @@ jobs:
        run: |
          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }} ./client
 
+     - name: build_BE_image
+       run: |
+         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:${{ github.sha }} ./api
+
+  trivy_images_scan:
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - name: Run Trivy vulnerability Image scan for FE
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          format: 'table'
+          exit-code: '0'
+          scan-type: 'image'
+          scan-ref: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }}
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Run Trivy vulnerability Image scan for BE
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          format: 'table'
+          exit-code: '0'
+          scan-type: 'image'
+          scan-ref: ${{ secrets.DOCKERHUB_USERNAME }}/backend:${{ github.sha }}
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+        
+
 
 
 
