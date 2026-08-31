@@ -72,11 +72,11 @@ jobs:
 
      - name: build_FE_image
        run: |
-         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }} ./client
+         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:1.1 ./client
 
      - name: build_BE_image
        run: |
-         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:${{ github.sha }} ./api
+         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:1.1 ./api
 
   trivy_images_scan:
     runs-on: ubuntu-latest
