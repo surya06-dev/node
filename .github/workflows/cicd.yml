@@ -45,7 +45,7 @@ jobs:
       - name: compilation
         run: |
            cd ./client
-           find . name "*.js" -exec node --check {} + 
+           find . -name "*.js" -exec node --check {} + 
 
       - name: Run lint
         run: |
@@ -76,7 +76,7 @@ jobs:
       - name: compilation
         run: |
            cd ./api
-           find . name "*.js" -exec node --check {} + 
+           find . -name "*.js" -exec node --check {} + 
 
       - name: Run lint
         run: |
