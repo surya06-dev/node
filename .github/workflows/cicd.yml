@@ -90,6 +90,10 @@ jobs:
       # ------------------------------
       # Secret scanning
       # ------------------------------
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Gitleaks Setup
         uses: gitleaks/gitleaks-action@v2
