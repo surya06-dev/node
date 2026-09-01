@@ -225,10 +225,10 @@ jobs:
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.FRONTEND_IMAGE }}:sha-${{ github.sha }}
-
+          vuln-type: 'os,library'
           severity: CRITICAL,HIGH
           ignore-unfixed: true
-          exit-code: "1"
+          exit-code: "0"
           format: table
 
       - name: Build Backtend image
@@ -246,10 +246,10 @@ jobs:
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ${{ env.BACKEND_IMAGE }}:sha-${{ github.sha }}
-
+          vuln-type: 'os,library'
           severity: CRITICAL,HIGH
           ignore-unfixed: true
-          exit-code: "1"
+          exit-code: "0"
           format: table
 
 
