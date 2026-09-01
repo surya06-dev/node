@@ -138,8 +138,8 @@ jobs:
   # 2. BUILD + SCAN + PUSH
   # ==========================================================
 
-  docker-build:
-    name: Build Docker Image
+  docker:
+    name: Build-Scan-Push Docker Image
     runs-on: ubuntu-latest
     needs:
       - Trivy_FS
