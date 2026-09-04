@@ -285,10 +285,13 @@ jobs:
           token: ${{ secrets.GITOPS_TOKEN }}
           path: gitops
 
+      - name: check working-directory
+        run: pwd
+
       - name: Update image tags
         working-directory: gitops
         run: |
-          FILE="node-gitops/overlays/devkustomization.yaml"
+          FILE="node-gitops/overlays/dev/kustomization.yaml"
 
           sed -i \
             "s|newTag: sha-.*|newTag: sha-${GITHUB_SHA}|g" \
@@ -298,7 +301,7 @@ jobs:
         working-directory: gitops
         run: |
           echo "Updated kustomization.yaml:"
-          cat node-gitops/overlays/devkustomization.yaml
+          cat node-gitops/overlays/dev/kustomization.yaml
 
       - name: Commit and push changes
         working-directory: gitops
@@ -306,7 +309,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add node-gitops/overlays/devkustomization.yaml
+          git add node-gitops/overlays/dev/kustomization.yaml
           if git diff --cached --quiet; then
             echo "No image changes detected"
             exit 0
