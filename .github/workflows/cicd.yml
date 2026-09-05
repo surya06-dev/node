@@ -56,7 +56,6 @@ jobs:
   validate_BE:
     name: Validate Application of back End
     runs-on: ubuntu-latest
-    needs: validate_FE
 
     permissions:
       contents: read
@@ -86,7 +85,6 @@ jobs:
 
   GitLeaks:
     runs-on: ubuntu-latest
-    needs: validate_BE
     steps:
       # ------------------------------
       # Secret scanning
@@ -111,7 +109,6 @@ jobs:
       # ------------------------------
   Trivy_FS:
     runs-on: ubuntu-latest
-    needs: GitLeaks
     steps:
 
       - name: Checkout source code
@@ -150,7 +147,11 @@ jobs:
     name: Build-Scan-Push Docker Image
     runs-on: ubuntu-latest
     needs:
+      - validate_FE
+      - validate_BE
+      - GitLeaks
       - Trivy_FS
+
 
     # Only push images after merge/push to main.
     # PRs only run validation.
